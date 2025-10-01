@@ -6,13 +6,13 @@ from datetime import datetime
 
 app = FastAPI()
 
-# Enable CORS
+# Enable CORS - Allow all origins, methods, and headers for API access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Allow all origins
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allow all methods including POST
+    allow_headers=["*"],  # Allow all headers
 )
 
 @app.get("/")
