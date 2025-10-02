@@ -54,3 +54,33 @@ async def log_latency(request: Request):
             "success": False,
             "error": str(e)
         }
+
+@app.post("/api/analytics")
+async def post_analytics(request: Request):
+    """Analytics endpoint for processing latency metrics data"""
+    try:
+        data = await request.json()
+        timestamp = datetime.utcnow().isoformat()
+        
+        # Process analytics data
+        # The data should contain region, service, latency_ms, uptime_pct, timestamp
+        analytics_log = {
+            "received_at": timestamp,
+            "data": data,
+            "user_agent": request.headers.get('user-agent', 'unknown')
+        }
+        
+        # In a production environment, you would save this to a database
+        print(f"Analytics data logged: {json.dumps(analytics_log)}")
+        
+        return {
+            "success": True,
+            "message": "Analytics data received and processed",
+            "received_at": timestamp,
+            "records_count": len(data) if isinstance(data, list) else 1
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e)
+        }
