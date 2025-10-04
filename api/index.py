@@ -15,6 +15,7 @@ app.add_middleware(
     allow_credentials=False,  # Set to False when using allow_origins=["*"]
     allow_methods=["*"],  # Allow all methods including POST
     allow_headers=["*"],  # Allow all headers
+    expose_headers=["*"]  # Expose all headers
 )
 
 @app.options("/{full_path:path}")
