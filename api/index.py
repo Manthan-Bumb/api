@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 import json
 import os
@@ -16,6 +16,18 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all methods including POST
     allow_headers=["*"],  # Allow all headers
 )
+
+@app.options("/{full_path:path}")
+async def options_handler(request: Request):
+    return Response(
+        content="",
+        status_code=200,
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+        }
+    )
 
 def load_telemetry_data():
     """Load telemetry data from q-vercel-latency.json"""
