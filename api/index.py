@@ -182,6 +182,7 @@ async def deployments(request: Request):
         
         return {
             "success": True,
+            "regions": regions,
             "metrics": metrics
         }
     
